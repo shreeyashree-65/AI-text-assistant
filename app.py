@@ -66,3 +66,75 @@ def call_llm(system_prompt: str, user_prompt: str) -> str:
         return response["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"❌ LLM error: {e}"
+    
+#Prompts
+def build_summarize_prompt(text: str) -> Tuple[str, str]:
+    system = (
+    "You are a concise assistant. Return exactly three bullet points that capture the key ideas."
+    )
+    user = f"Summarize the following text in exactly three bullet points.\n\n{text}"
+    return system, user
+
+def build_rewrite_prompt(text: str, tone: str) -> Tuple[str, str]:
+    system = "You are a skilled editor who rewrites text while preserving meaning."
+    user = (
+    f"Rewrite the text in a {tone} tone. Keep it clear and concise.\n\nText:\n{text}"
+    )
+    return system, user
+
+def build_explain_prompt(text: str, level: str) -> Tuple[str, str]:
+    system = "You explain complex topics using simple words and examples."
+    user = (
+    f"Explain the following to a {level}. Use short sentences and examples.\n\n{text}"
+    )
+    return system, user
+
+def build_ideas_prompt(topic: str, n: int) -> Tuple[str, str]:
+    system = "You are a creative brainstorming partner who outputs numbered ideas."
+    user = f"Give me {n} creative, distinct ideas for: {topic}"
+    return system, user
+
+def build_sentiment_prompt(text: str) -> Tuple[str, str]:
+    system = (
+    "You are a precise sentiment classifier. Output only one word: Positive, Negative, or Neutral."
+    )
+    user = f"Classify the sentiment of this text. Output only one word.\n\n{text}"
+    return system, user
+
+#Main UI body
+MODE_OPTIONS = [
+    "Summarize",
+    "Rewrite",
+    "Explain",
+    "Idea Generator",
+    "Sentiment Analysis",
+]
+
+mode = st.selectbox("Choose a feature", MODE_OPTIONS)
+
+if mode == "Idea Generator":
+    input_label = "Enter your topic or problem statement"
+else:
+    input_label = "Paste your text"
+
+
+text = st.text_area(input_label, height=180)
+
+if mode == "Rewrite":
+    col1, col2 = st.columns(2)
+    with col1:
+        tone = st.selectbox(
+            "Tone",
+            ["professional", "friendly", "concise", "enthusiastic", "empathetic"],
+            index=0,
+        )
+    with col2:
+        pass
+elif mode == "Explain":
+    level = st.selectbox(
+        "Audience",
+        ["12-year-old", "beginner", "non-technical adult", "college student"],
+        index=0,
+    )
+elif mode == "Idea Generator":
+    n_ideas = st.slider("Number of ideas", 3, 10, value=5)
