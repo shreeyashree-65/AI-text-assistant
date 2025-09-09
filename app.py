@@ -138,3 +138,49 @@ elif mode == "Explain":
     )
 elif mode == "Idea Generator":
     n_ideas = st.slider("Number of ideas", 3, 10, value=5)
+
+run = st.button("Run")
+
+#Validate API key before calling LLM
+if run:
+    if not openai.api_key:
+        st.error("Please provide your OpenAI API key in the sidebar.")
+        st.stop()
+
+
+    if not text.strip():
+        st.warning("Please enter some text first.")
+        st.stop()
+
+    #Call LLM
+    if mode == "Summarize":
+        sys_p, usr_p = build_summarize_prompt(text)
+        output = call_llm(sys_p, usr_p)
+    elif mode == "Rewrite":
+        sys_p, usr_p = build_rewrite_prompt(text, tone)
+        output = call_llm(sys_p, usr_p) 
+    elif mode == "Explain":
+        sys_p, usr_p = build_explain_prompt(text, level)
+        output = call_llm(sys_p, usr_p)
+    elif mode == "Idea Generator":
+        sys_p, usr_p = build_ideas_prompt(text, n_ideas)
+        output = call_llm(sys_p, usr_p)
+    else:
+        sys_p, usr_p = build_sentiment_prompt(text)
+        output = call_llm(sys_p, usr_p)
+
+    #Results
+    st.subheader("Result")
+    st.write(output)
+
+    with st.expander("🔍 Prompt preview (what was sent to the LLM)"):
+        st.markdown("**System Prompt**")
+        st.code(sys_p)
+        st.markdown("**User Prompt**")
+        st.code(usr_p)
+
+    #Footer
+    st.markdown("---")
+    st.caption(
+        "Tip: This v1 keeps everything in one file so you learn faster. In v2, we’ll split prompts and the LLM client into modules and add evaluation."
+)
