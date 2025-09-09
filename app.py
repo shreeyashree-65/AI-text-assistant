@@ -18,8 +18,8 @@ st.set_page_config(
     page_icon="🤖"
 )
 
-st.title("🤖 AI-Powered Text Assistant")
-st.caption("Rewrite • Summarize • Explain • Ideate • Sentiment — built to practice prompting while shipping a real app")
+st.title(" AI-Powered Text Assistant")
+st.caption("Rewrite • Summarize • Explain • Ideate • Sentiment, built to practice prompting while shipping a real app")
 
 with st.sidebar:
     st.header("Settings")
