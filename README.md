@@ -52,7 +52,7 @@ OPENAI_MODEL=gpt-3.5-turbo
 streamlit run app.py
 ```
 
-## Output
+## Output page
 <img width="1918" height="845" alt="Screenshot 2025-09-10 172152" src="https://github.com/user-attachments/assets/f4e349e2-f859-42fe-aeb9-319f6b808bb2" />
 
 ##  License
