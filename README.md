@@ -21,33 +21,33 @@ AI-text-assistant/
 
 ## ⚙️ Setup Instructions
 
-### 1️⃣ Clone the repository
+### 1️. Clone the repository
 ```bash
 git clone https://github.com/your-username/AI-text-assistant.git
 cd AI-text-assistant
 ```
 
-### 2️⃣ Create and activate a virtual environment
+### 2️. Create and activate a virtual environment
 ```bash
 python -m venv .venv
 # Activate it:
 .venv\Scripts\activate
 ```
 
-### 3️⃣ Install dependencies
+### 3️. Install dependencies
 ```bash
 pip install -r requirements.txt
 pip install openai==0.28
 ```
 
-### 4️⃣ Add your OpenAI API Key
+### 4️. Add your OpenAI API Key
 ```bash
 #Create a .env file in the project root:
 OPENAI_API_KEY=your_api_key_here
 OPENAI_MODEL=gpt-3.5-turbo
 ```
 
-### 5️⃣ Run the app
+### 5️. Run the app
 ```bash
 streamlit run app.py
 ```
